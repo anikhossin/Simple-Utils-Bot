@@ -31,6 +31,17 @@ class Modration(commands.Cog):
         await user.kick(reason=reason)
         
     
+    @commands.hybrid_command(
+        name='unban',
+        description='Unban a user from the server',
+        usage='unban <user>',
+    )
+    @commands.has_permissions(ban_members=True)
+    async def unban(self, ctx, user: discord.User):
+        await ctx.guild.unban(user)
+        await ctx.reply(embed=discord.Embed(description=f'`{user.name}` has been unbanned', color=discord.Color.green()))
+        
+    
     
 async def setup(bot):
     await bot.add_cog(Modration(bot))
